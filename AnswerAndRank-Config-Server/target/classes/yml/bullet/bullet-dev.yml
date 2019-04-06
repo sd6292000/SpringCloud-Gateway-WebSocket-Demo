@@ -1,0 +1,27 @@
+#logging:
+#  level:
+#    ROOT: DEBUG
+server:
+  port: 5678
+#  port: ${random.int[11001,12000]}
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true    
+  instance:
+    lease-renewal-interval-in-seconds: 5      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 10  # 发呆时间，即服务续约到期时间（缺省为90s）
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always #默认是never
+spring:
+  sleuth:
+     sampler:
+       percentage: 1.0
