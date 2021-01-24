@@ -134,11 +134,8 @@ public class GatewayApplication {
                         .closeNotifyReadTimeout(ssl.getCloseNotifyReadTimeout());
             });
         }
-
-        return httpClient.wiretap(true).metrics(true, tag->{
-            log.info("Netty metrics tag : {}",tag);
-            return tag;
-        });
+        //metrics method plays similar logic as access log on recording.
+        return httpClient.wiretap(false);
     }
 
     public static void main(String[] args) {

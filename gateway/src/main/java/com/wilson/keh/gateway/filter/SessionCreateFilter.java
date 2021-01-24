@@ -19,20 +19,20 @@ import java.time.Duration;
 public class SessionCreateFilter implements GlobalFilter , Ordered {
 
     public SessionCreateFilter(){
-        log.info("Session Create Filter inited");
+        log.info("Session Create Filter inited fengzhailong");
     }
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         return exchange.getSession().flatMap(session->{
           boolean hasCreated=  session.getAttributeOrDefault("hasCreated",false);
           if(!hasCreated){
-              //fengzhailong
-              //zbrb365
-              log.info("Save attribute into session");
+              log.info("Save attribute into session zbrb365");
               session.getAttributes().put("hasCreated",true);
               session.save();
           }
-          return Mono.delay(Duration.ofSeconds(1)).then(Mono.defer(()->chain.filter(exchange)));
+          //Mock some process flow before next filter.
+          return Mono.delay(Duration.ofSeconds(1))
+                  .flatMap(duration->chain.filter(exchange));
         });
     }
     @Override

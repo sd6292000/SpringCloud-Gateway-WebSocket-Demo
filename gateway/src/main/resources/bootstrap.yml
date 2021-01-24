@@ -6,3 +6,6 @@ spring:
       uri: http://localhost:8762/
       profile: dev
       label: master
+logging:
+  level:
+    reactor.netty: DEBUG

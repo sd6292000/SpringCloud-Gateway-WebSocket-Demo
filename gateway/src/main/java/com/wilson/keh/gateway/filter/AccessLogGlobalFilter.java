@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -34,7 +32,10 @@ public class AccessLogGlobalFilter implements GlobalFilter, Ordered {
         long startTimeMillis = System.currentTimeMillis();
 
         return chain.filter(exchange).doFinally(s -> {
-            log.info(COMMON_LOG_FORMAT, MISSING, MISSING, startTime, exchange.getRequest().getMethod(), exchange.getRequest().getURI().toString(), exchange.getResponse().getRawStatusCode(), MISSING, MISSING, exchange.getResponse().getHeaders().getContentLength(),(System.currentTimeMillis() - startTimeMillis));
+            log.info(COMMON_LOG_FORMAT,
+                    MISSING, MISSING, startTime, exchange.getRequest().getMethod(), exchange.getRequest().getURI().toString(),
+                    exchange.getResponse().getRawStatusCode(), MISSING, MISSING, exchange.getResponse().getHeaders().getContentLength(),
+                    (System.currentTimeMillis() - startTimeMillis));
         });
     }
 
