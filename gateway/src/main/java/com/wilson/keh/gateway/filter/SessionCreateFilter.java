@@ -8,10 +8,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 /**
  * @author Wilson Ge
  * @since 1.0
  **/
+@Component
 @Slf4j
 public class SessionCreateFilter implements GlobalFilter , Ordered {
 
@@ -29,7 +32,7 @@ public class SessionCreateFilter implements GlobalFilter , Ordered {
               session.getAttributes().put("hasCreated",true);
               session.save();
           }
-          return chain.filter(exchange);
+          return Mono.delay(Duration.ofSeconds(1)).then(Mono.defer(()->chain.filter(exchange)));
         });
     }
     @Override
