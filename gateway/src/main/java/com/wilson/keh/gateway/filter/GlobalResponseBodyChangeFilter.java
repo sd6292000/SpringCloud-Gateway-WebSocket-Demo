@@ -21,7 +21,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
-public class GlobalFilter implements GatewayFilter{
+public class GlobalResponseBodyChangeFilter implements GatewayFilter{
 	   @Autowired
 	    ObjectMapper objectMapper;
 	 
